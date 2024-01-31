@@ -7,6 +7,9 @@ import pytube
 import re
 import subprocess
 
+global vidurl
+vidurl = ""
+
 def getyt(link):
     youtubeObject = pytube.YouTube(link)
     youtubeObject = youtubeObject.streams.get_highest_resolution()
@@ -43,6 +46,7 @@ if os.path.exists("./export"):
         vidurl = input("link to video or path to video: ")
         if not os.path.exists(vidurl):
             getyt(str(vidurl))
+            vidurl = "./getyt_export.mp4"
             split("./getyt_export.mp4")
         else:
             split(vidurl)
@@ -54,6 +58,7 @@ else:
     vidurl = input("link to video or path to video: ")
     if not os.path.exists(vidurl):
         getyt(str(vidurl))
+        vidurl = "./getyt_export.mp4"
         split("./getyt_export.mp4")
     else:
         split(vidurl)
@@ -67,6 +72,7 @@ if fps == 0:
     fps = input("fps: ")
 
 subprocess.call(['gnome-terminal', '-x', 'python3', '/home/kingvcheese/code/VideoToAscii/soundplayer.py'])
+time.sleep(1)
 
 for i in range(len(files)):
     output = climage.convert(f'./export/{i}.jpg', is_256color=True)
